@@ -19,6 +19,8 @@ class DeviceInfo(Message):
     def format_body(self) -> str:
         return (
             "Device Info:\n"
-            f"  Machine Type:    {self.machineType:>3d}  Model Type: {self.modelType:>3d}\n"
-            f"  Security Switch: {self.securitySwitch:>3d}  Run Status: {self.runStatus:>3d}"
+            f"  Machine Type:    {self.machineType:>3d}"
+            f"  Model Type: {self.modelType:>3d}\n"
+            f"  Security Switch: {self.securitySwitch:>3d}"
+            f"  Run Status: {self.runStatus:>3d}"
         )

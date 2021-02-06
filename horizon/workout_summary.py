@@ -1,5 +1,6 @@
-from .message import Message
 from typing import List
+
+from .message import Message
 
 
 class WorkoutSummary(Message):
@@ -45,7 +46,7 @@ class WorkoutSummary(Message):
     def format_body(self) -> str:
         s = (
             "Workout Summary:\n"
-            f"  User Name: \'{self.userName:s}\'  User Id: {self.userId:d}\n"
+            f"  User Name: '{self.userName:s}'  User Id: {self.userId:d}\n"
             f"  MMFTokenId: {self.MMFTokenId:s}\n"
             f"  MFPTokenId: {self.MFPTokenId:s}\n"
             f"  MFPUserId: {self.MFPUserId:s}\n"
@@ -95,7 +96,8 @@ class WorkoutListMember:
 
     def __str__(self) -> str:
         return (
-            f"    Time: {self.time:d}  Calories: {self.calories:d}  Distance: {self.distance:d}\n"
+            f"    Time: {self.time:d}  Calories: {self.calories:d}"
+            f"  Distance: {self.distance:d}\n"
             f"    Max Speed: {self.maxSpeed:d}  Average Speed: {self.averageSpeed:d}\n"
             f"    Max HR: {self.maxHR:d}  Average HR: {self.averageHR:d}\n"
             f"    mem10: {self.mem10:d}  Units: {self.units:d}\n"

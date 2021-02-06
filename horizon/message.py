@@ -24,7 +24,8 @@ class Message:
     def format_header(self) -> str:
         return (
             "Header\n"
-            f"  signature:       0x{self.signature.hex()}  sequence number: 0x{self.seq_num:04x}\n"
+            f"  signature:       0x{self.signature.hex()}"
+            f"  sequence number: 0x{self.seq_num:04x}\n"
             f"  msg[4]: 0x{self.msg4:02x}\n"
             f"  msg[5]: 0x{self.msg5:02x}\n"
             f"  length:          0x{self.length:04x}\n"
@@ -49,7 +50,9 @@ class Message:
         return string
 
     def __str__(self) -> str:
-        return self.format_type() + "\n" + self.format_header() + "\n" + self.format_body()
+        return (
+            self.format_type() + "\n" + self.format_header() + "\n" + self.format_body()
+        )
 
     def parse_msg_type(self) -> None:
         msg_type = ""
@@ -165,8 +168,10 @@ class Message:
 
         if msg_type == "":
             msg_type = (
-                f"Unknown: msg[4]: {self.msg[4:5].hex()}  msg[5]: {self.msg[5:6].hex()}  "
-                f"msg[10]: {self.msg[10:11].hex()}  msg[11]: {self.msg[11:12].hex()}"
+                f"Unknown: msg[4]: {self.msg[4:5].hex()}"
+                f"  msg[5]: {self.msg[5:6].hex()}"
+                f"  msg[10]: {self.msg[10:11].hex()}"
+                f"  msg[11]: {self.msg[11:12].hex()}"
             )
 
         self.type = msg_type

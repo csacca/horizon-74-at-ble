@@ -1,16 +1,12 @@
+from capstone import CS_ARCH_ARM, CS_MODE_THUMB, Cs
 from unicorn import (
     UC_ARCH_ARM,
-    UC_ERR_MAP,
-    UC_HOOK_BLOCK,
     UC_HOOK_CODE,
     UC_HOOK_MEM_FETCH_UNMAPPED,
-    UC_HOOK_MEM_READ,
-    UC_HOOK_MEM_READ_AFTER,
     UC_HOOK_MEM_READ_UNMAPPED,
     UC_HOOK_MEM_WRITE_UNMAPPED,
     UC_MODE_THUMB,
     Uc,
-    UcError,
 )
 from unicorn.arm_const import (
     UC_ARM_REG_PC,
@@ -21,9 +17,6 @@ from unicorn.arm_const import (
     UC_ARM_REG_R4,
     UC_ARM_REG_SP,
 )
-
-from capstone import Cs, CS_ARCH_ARM, CS_MODE_THUMB
-from unicorn.unicorn_const import UC_HOOK_MEM_WRITE
 
 cs = Cs(CS_ARCH_ARM, CS_MODE_THUMB)
 
@@ -46,7 +39,8 @@ def hook_mem_read(uc, access, address, size, value, user_data):
 def hook_mem_read_after(uc, access, address, size, value, user_data):
     if address < 0x38000:
         print(
-            ">>> Memory READ at 0x%x, data size = %u, data value = 0x%x" % (address, size, value)
+            ">>> Memory READ at 0x%x, data size = %u, data value = 0x%x"
+            % (address, size, value)
         )
     return True
 
@@ -54,7 +48,8 @@ def hook_mem_read_after(uc, access, address, size, value, user_data):
 def hook_mem_write(uc, access, address, size, value, user_data):
     if address < 0xF0000000:
         print(
-            ">>> Memory WRITE at 0x%x, data size = %u, data value = 0x%x" % (address, size, value)
+            ">>> Memory WRITE at 0x%x, data size = %u, data value = 0x%x"
+            % (address, size, value)
         )
     return True
 
@@ -101,7 +96,9 @@ def hook_instr(mu: Uc, address, size, user_data):
         # input()
         pass
     if address >= 0x0369E0 and address <= 0x36A00:
-        print(">>> Tracing instruction at 0x%X, instruction size = 0x%X" % (address, size))
+        print(
+            ">>> Tracing instruction at 0x%X, instruction size = 0x%X" % (address, size)
+        )
         R0 = mu.reg_read(UC_ARM_REG_R0)
         R1 = mu.reg_read(UC_ARM_REG_R1)
         R2 = mu.reg_read(UC_ARM_REG_R2)
@@ -109,7 +106,8 @@ def hook_instr(mu: Uc, address, size, user_data):
         R4 = mu.reg_read(UC_ARM_REG_R4)
         PC = mu.reg_read(UC_ARM_REG_PC)
         print(
-            f"R0: {R0:08X}  R1: {R1:08X}  R2: {R2:08X}  R3: {R3:08X}  R4: {R4:08X}  PC: {PC:08X}"
+            f"R0: {R0:08X}  R1: {R1:08X}  R2: {R2:08X}  "
+            f"R3: {R3:08X}  R4: {R4:08X}  PC: {PC:08X}"
         )
         mem = mu.mem_read(address, size)
         for i in cs.disasm(mem, address):
@@ -120,7 +118,9 @@ def hook_instr(mu: Uc, address, size, user_data):
         print()
         # dump_hex_buf(mu, R0, R1)
 
-    mu.last_instr = f">>> Tracing instruction at 0x{address:08X}, instruction size = 0x{size:X}\n"
+    mu.last_instr = (
+        f">>> Tracing instruction at 0x{address:08X}, instruction size = 0x{size:X}\n"
+    )
     R0 = mu.reg_read(UC_ARM_REG_R0)
     R1 = mu.reg_read(UC_ARM_REG_R1)
     R2 = mu.reg_read(UC_ARM_REG_R2)
@@ -128,7 +128,8 @@ def hook_instr(mu: Uc, address, size, user_data):
     R4 = mu.reg_read(UC_ARM_REG_R4)
     PC = mu.reg_read(UC_ARM_REG_PC)
     mu.last_instr += (
-        f"R0: {R0:08X}  R1: {R1:08X}  R2: {R2:08X}  R3: {R3:08X}  R4: {R4:08X}  PC: {PC:08X}\n"
+        f"R0: {R0:08X}  R1: {R1:08X}  R2: {R2:08X}  "
+        f"R3: {R3:08X}  R4: {R4:08X}  PC: {PC:08X}\n"
     )
 
     # branch = False

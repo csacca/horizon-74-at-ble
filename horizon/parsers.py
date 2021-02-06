@@ -1,8 +1,8 @@
-from .workout_data import WorkoutData
-from .user_info import UserInfo
-from .header import Header
 from .device_info import DeviceInfo
+from .header import Header
 from .set_speed import SetSpeed
+from .user_info import UserInfo
+from .workout_data import WorkoutData
 
 
 def parse_header(msg: bytes) -> Header:

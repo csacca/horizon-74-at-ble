@@ -89,7 +89,9 @@ def main():
                 and int(pkt.bthci_evt.le_meta_subevent, 16) == 0x02
                 and int(pkt.bthci_evt.le_advts_event_type, 16) == 0x04
                 and "btcommon_eir_ad_entry_device_name" in pkt.bthci_evt.field_names
-                and pkt.bthci_evt.btcommon_eir_ad_entry_device_name.lower().startswith("horizon")
+                and pkt.bthci_evt.btcommon_eir_ad_entry_device_name.lower().startswith(
+                    "horizon"
+                )
             ):
                 # pkt.pretty_print()
                 mac = pkt.bthci_evt.bd_addr

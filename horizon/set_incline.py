@@ -11,4 +11,7 @@ class SetIncline(Message):
         self.msg12 = msg[12]
 
     def format_body(self) -> str:
-        return f"Set Incline:\n  Incline: {self.incline/10.0:.1f}\n  msg[12]: {self.msg12:02x}"
+        return (
+            f"Set Incline:\n  Incline: {self.incline/10.0:.1f}\n"
+            f"  msg[12]: {self.msg12:02x}"
+        )
