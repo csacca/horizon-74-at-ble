@@ -1,0 +1,61 @@
+msg[4:5] and msg type from apk
+
+0301 response_selectUser
+
+  00
+    switch msg[10], msg[11] might be a response code
+    01 response_selectUser
+    02 response_startWorkout
+    03 response_pauseWorkout || continueWorkout
+    04 response_changeWorkout
+    05 response_setSpeed
+    06 response_setIncline
+    07 response_setResistance
+    0f response_setUser
+    10 response_selectProgram
+    12 response_deleteUser
+    13 response_setHeartValue
+    14 response_stopWorkout
+    17 response_setMyFirst5k;
+    18 response_customProgram
+    19 response_setCustomHRProgram
+    1A response_workoutProgram
+xx14
+0114 stopWorkout
+0314 device_timeSync
+
+xx02
+0102 response_getMachineInfo
+0302 device_startWorkout
+
+xx03
+     deviceContinueWorkout || device_pauseWorkout (based on msg[10])
+
+0304 change_workout
+
+xx11 keyPress
+xx12 device_workoutData
+xx16 userInfo
+xx17 setMyFirst5k
+xx18 setCustomProgram
+xx19 setCustomHRProgram
+xx1a workoutSummary
+xx1b setPopupInfo
+
+0310 selectProgram?
+0312 deleteUserData
+0313 setHeartValue
+
+
+0305 setSpeed
+msg[10] (0,1) maybe currentUserId?
+msg[11], msg[12] speed
+msg[13] (0,1)
+
+0306 setIncline
+msg[10], msg[11] incline
+msg[12] (0,1)
+
+0307 setResistance
+msg[10] resistance
+msg[11] (0,1)
