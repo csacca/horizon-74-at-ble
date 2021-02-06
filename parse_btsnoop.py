@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from binascii import unhexlify
 
 import pyshark
@@ -73,7 +74,11 @@ def process_msg(msg: bytes):
 
 
 def main():
-    filename = "btsnoop_hci.log"
+    parser = ArgumentParser()
+    parser.add_argument("filename")
+    args = parser.parse_args()
+    filename = args.filename
+
     mac = None
 
     cap = pyshark.FileCapture(filename)
